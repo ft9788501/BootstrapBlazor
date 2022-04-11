@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Components;
@@ -11,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Upload 组件基类
 /// </summary>
-public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
+public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload, IAsyncDisposable
 {
     /// <summary>
     /// 获得 组件样式
@@ -55,6 +56,22 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }
 
+    private IJSObjectReference? module;
+    private IJSObjectReference? dropInstance;
+    private DotNetObjectReference<UploadBase<TValue>>? wrapper;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected ElementReference UploadElement { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected InputFile? inputFile { get; set; }
+
+    protected string? uploadstatus;
+
     /// <summary>
     /// OnAfterRender 方法
     /// </summary>
@@ -66,6 +83,9 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         if (firstRender && !IsDisabled)
         {
             await JSRuntime.InvokeVoidAsync(UploaderElement, "bb_upload");
+            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/BootstrapBlazor/upload.js");
+            wrapper = DotNetObjectReference.Create(this);
+            dropInstance = await module!.InvokeAsync<IJSObjectReference>("init", wrapper, UploadElement, inputFile!.Element);
         }
     }
 
@@ -168,5 +188,36 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         UploadFiles.Clear();
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="msg"></param>
+    [JSInvokable]
+    public void DropAlert(string msg)
+    {
+        uploadstatus += Environment.NewLine + $"[!Alert!]: " + msg;
+        StateHasChanged();
+    }
+
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (dropInstance != null)
+        {
+            await dropInstance.InvokeVoidAsync("dispose");
+            await dropInstance.DisposeAsync();
+        }
+
+        if (wrapper != null)
+        {
+            wrapper.Dispose();
+        }
+
+        if (module != null)
+        {
+            await module.DisposeAsync();
+        }
     }
 }
