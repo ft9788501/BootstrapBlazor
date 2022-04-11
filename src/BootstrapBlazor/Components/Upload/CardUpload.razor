@@ -27,7 +27,7 @@
                         <i class="fa fa-search-plus"></i>
                     </button>
                     <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)"
-                                TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
+                                    TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
                         <i class="fa fa-trash-o"></i>
                     </DynamicElement>
                 </div>
@@ -55,9 +55,9 @@
             </div>
         }
     </div>
-    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" @ref="inputFile" />
 
-    @if(ShowPreviewList)
+    @if (ShowPreviewList)
     {
         <ImagePreview PreviewList="PreviewList" />
     }
