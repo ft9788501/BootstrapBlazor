@@ -1,0 +1,37 @@
+﻿@page "/responsives"
+
+<h3>Responsive 断点监听</h3>
+
+<h4>根据参数条件，确定是否重新渲染响应布局的内容，通常用于响应布局</h4>
+
+<DemoBlock Title="基础用法" Introduction="调整浏览器窗口大小，观察Breakpoint的变化" Name="Normal">
+    <Responsive>
+        <div>当前Breakpoint：@context</div>
+    </Responsive>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+
+@code{
+    private Task<bool> OnRenderCondition(BreakPoint last , BreakPoint current) => Task.FromResult(true);
+
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
+        new AttributeItem()
+        {
+            Name = nameof(Responsive.OnRenderCondition),
+            Description = "获得/设置 是否触发内容刷新 返回 true 时刷新",
+            Type = "Func<BreakPoint, BreakPoint, Task<bool>>",
+            ValueList = " — ",
+            DefaultValue = "true"
+        },
+        new AttributeItem()
+        {
+            Name = nameof(Responsive.ChildContent),
+            Description = "获得/设置 子组件内容 ",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
+}

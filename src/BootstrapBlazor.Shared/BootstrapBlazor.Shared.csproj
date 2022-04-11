@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
     <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.AzureSpeech\BootstrapBlazor.AzureSpeech.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Responsive\BootstrapBlazor.Responsive.csproj" />
   </ItemGroup>
 
 </Project>

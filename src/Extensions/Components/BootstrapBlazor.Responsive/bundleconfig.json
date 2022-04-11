@@ -1,0 +1,13 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/responsive.min.js",
+    "inputFiles": [
+      "wwwroot/responsive.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    },
+    "sourceMap": false
+  }
+]

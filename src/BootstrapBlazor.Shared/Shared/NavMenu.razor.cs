@@ -977,6 +977,11 @@ public sealed partial class NavMenu
             {
                 Text = Localizer["Split"],
                 Url = "splits"
+            },
+            new()
+            {
+                Text = Localizer["Responsive"],
+                Url = "responsives"
             }
         };
         AddBadge(item);

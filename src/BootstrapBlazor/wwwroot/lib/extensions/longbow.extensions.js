@@ -114,6 +114,19 @@
                     obj.invokeMethodAsync(method, '', '', data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent);
                 }
             });
+        },
+        registerCSS: function (href) {
+            if (!href) return false;
+            const links = document.getElementsByTagName('link');
+            for (var index = 0; index < links.length; index++) {
+                if (links[index]['href'].indexOf(href) != -1)
+                    return true;
+            }
+            const link = document.createElement("link");
+            link.setAttribute("rel", "stylesheet");
+            link.setAttribute("href", href);
+            document.getElementsByTagName("head")[0].appendChild(link);
+            return true;
         }
     });
 
@@ -122,7 +135,6 @@
             var $this = $(this);
 
             var handleDragStart = function (e) {
-                e.preventDefault();
                 e.stopPropagation();
 
                 document.addEventListener('mousemove', handleDragMove);

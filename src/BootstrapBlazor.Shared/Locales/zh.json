@@ -2627,6 +2627,7 @@
     "Scroll": "滚动条 Scroll",
     "Skeleton": "骨架屏 Skeleton",
     "Split": "分割面板 Split",
+    "Responsive": "断点监听 Responsive",
     "NavigationComponents": "导航组件",
     "Anchor": "锚点 Anchor",
     "AnchorLink": "锚点链接 AnchorLink",
