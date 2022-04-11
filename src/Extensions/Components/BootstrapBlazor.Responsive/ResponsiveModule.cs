@@ -1,5 +1,9 @@
-﻿using System.Reflection;
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
 using Microsoft.JSInterop;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -32,7 +36,7 @@ public sealed class ResponsiveModule : IAsyncDisposable
     /// </summary>
     /// <param name="jsRuntime"></param>
     public ResponsiveModule(IJSRuntime jsRuntime)
-        => _moduleTask = new(() =>jsRuntime.InvokeAsync<IJSObjectReference>("import", JsModuleName));
+        => _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", JsModuleName));
 
     private async Task<bool> CreateModule()
     {

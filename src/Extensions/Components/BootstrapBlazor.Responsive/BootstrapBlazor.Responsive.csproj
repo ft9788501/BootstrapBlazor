@@ -5,6 +5,7 @@
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Responsive</PackageTags>
     <Description>Bootstrap UI components extensions of responsive breakpoint</Description>
+    <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
