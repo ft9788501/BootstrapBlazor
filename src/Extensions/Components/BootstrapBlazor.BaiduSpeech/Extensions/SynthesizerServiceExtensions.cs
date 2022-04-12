@@ -25,20 +25,4 @@ public static class SynthesizerServiceExtensions
         };
         await service.InvokeAsync("Baidu", option);
     }
-
-    /// <summary>
-    /// 关闭语音合成方法
-    /// </summary>
-    /// <param name="service"></param>
-    /// <param name="callback"></param>
-    /// <returns></returns>
-    public static async Task BaiduCloseAsync(this SynthesizerService service, Func<SynthesizerStatus, Task> callback)
-    {
-        var option = new SynthesizerOption()
-        {
-            MethodName = "bb_close",
-            Callback = callback
-        };
-        await service.InvokeAsync("Baidu", option);
-    }
 }

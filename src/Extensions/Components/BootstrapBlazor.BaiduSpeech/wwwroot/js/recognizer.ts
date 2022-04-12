@@ -31,7 +31,3 @@ export function bb_speech_close(obj: Obj, callback: String, method: String, tran
         })
     }, (msg) => { });
 }
-
-interface Obj {
-    invokeMethodAsync(method: String, parms?: any)
-}

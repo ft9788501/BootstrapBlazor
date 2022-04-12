@@ -6,6 +6,10 @@ declare class Recorder {
 
 }
 
+declare interface Obj {
+    invokeMethodAsync(method: String, params?: any)
+}
+
 interface Options {
     type: String,
     sampleRate: Number,

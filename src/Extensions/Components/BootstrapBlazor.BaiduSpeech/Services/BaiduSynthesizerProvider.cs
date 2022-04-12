@@ -50,24 +50,21 @@ internal class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
         if (!string.IsNullOrEmpty(option.Text))
         {
             Option = option;
-            if (!string.IsNullOrEmpty(option.MethodName))
+            if (string.IsNullOrEmpty(option.MethodName))
             {
-                if (Module == null)
-                {
-                    Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/synthesizer.js");
-                }
-                Interop ??= DotNetObjectReference.Create(this);
-                await Module.InvokeVoidAsync(Option.MethodName!, Interop, nameof(Callback), Option.Text);
-            }
-            else
-            {
-
                 var result = Client.Synthesis(option.Text, new Dictionary<string, object>
                 {
                     {"spd", 5}, // 语速
                     {"vol", 7}, // 音量
                     {"per", 4}  // 发音人，4：情感度丫丫童声
                 });
+
+                if (Module == null)
+                {
+                    Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js");
+                }
+                Interop ??= DotNetObjectReference.Create(this);
+                await Module.InvokeVoidAsync("Generateaudio", Interop, nameof(Callback), result.Data);
             }
 
         }
