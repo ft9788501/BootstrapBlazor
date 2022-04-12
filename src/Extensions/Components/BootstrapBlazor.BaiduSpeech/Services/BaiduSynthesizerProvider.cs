@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 internal class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
 {
     [NotNull]
-    public string? Name { get; set; } = "Azure";
+    public string? Name { get; set; } = "Baidu";
 
     private DotNetObjectReference<BaiduSynthesizerProvider>? Interop { get; set; }
 
@@ -26,6 +26,8 @@ internal class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
 
     private IJSRuntime JSRuntime { get; }
 
+    private Baidu.Aip.Speech.Tts Client { get; }
+
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -35,6 +37,7 @@ internal class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     {
         JSRuntime = runtime;
         SpeechOption = options.Value;
+        Client = new Baidu.Aip.Speech.Tts(SpeechOption.ApiKey, SpeechOption.Secret);
     }
 
     /// <summary>
@@ -46,18 +49,21 @@ internal class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     {
         if (!string.IsNullOrEmpty(option.Text))
         {
-            if (string.IsNullOrEmpty(option.MethodName))
+            Option = option;
+            if (!string.IsNullOrEmpty(option.MethodName))
             {
-                throw new InvalidOperationException();
+                if (Module == null)
+                {
+                    Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/synthesizer.js");
+                }
+                Interop ??= DotNetObjectReference.Create(this);
+                await Module.InvokeVoidAsync(Option.MethodName!, Interop, nameof(Callback), Option.Text);
+            }
+            else
+            {
+                var result = Client.Synthesis(option.Text);
             }
 
-            Option = option;
-            if (Module == null)
-            {
-                Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/synthesizer.js");
-            }
-            Interop ??= DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), Option.Text);
         }
         else
         {

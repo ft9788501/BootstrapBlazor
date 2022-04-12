@@ -34,6 +34,10 @@ public static class ServiceCollectionExtension
         services.AddScoped<IRecognizerProvider, BaiduRecognizerProvider>();
         services.TryAddSingleton<IConfigureOptions<BaiduSpeechOption>, ConfigureOptions<BaiduSpeechOption>>();
 
+        services.AddScoped<SynthesizerService>();
+        services.AddScoped<ISynthesizerProvider, BaiduSynthesizerProvider>();
+        services.TryAddSingleton<IConfigureOptions<BaiduSpeechOption>, ConfigureOptions<BaiduSpeechOption>>();
+
         services.Configure<BaiduSpeechOption>(option =>
         {
             configOptions?.Invoke(option);
