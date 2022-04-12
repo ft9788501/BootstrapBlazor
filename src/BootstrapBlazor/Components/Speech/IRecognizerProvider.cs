@@ -14,9 +14,4 @@ public interface IRecognizerProvider
     /// </summary>
     /// <returns></returns>
     Task InvokeAsync(RecognizerOption option);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    string? Name { get; }
 }

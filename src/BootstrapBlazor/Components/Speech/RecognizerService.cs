@@ -9,23 +9,21 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class RecognizerService
 {
-    private IEnumerable<IRecognizerProvider> Providers { get; }
+    private IRecognizerProvider Provider { get; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="providers"></param>
-    public RecognizerService(IEnumerable<IRecognizerProvider> providers)
+    /// <param name="provider"></param>
+    public RecognizerService(IRecognizerProvider provider)
     {
-        Providers = providers;
+        Provider = provider;
     }
 
     /// <summary>
     /// 语音识别回调方法
     /// </summary>
     /// <param name="option"></param>
-    /// <param name="name"></param>
     /// <returns></returns>
-    public Task InvokeAsync(string name, RecognizerOption option) => Providers.FirstOrDefault(p => p.Name
-     == name)!.InvokeAsync(option);
+    public Task InvokeAsync(RecognizerOption option) => Provider.InvokeAsync(option);
 }
