@@ -68,9 +68,13 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload, IAsync
     /// <summary>
     /// 
     /// </summary>
+    [NotNull]
     protected InputFile? inputFile { get; set; }
 
-    protected string? uploadstatus;
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? uploadstatus { get; set; }
 
     /// <summary>
     /// OnAfterRender 方法
@@ -82,10 +86,12 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload, IAsync
 
         if (firstRender && !IsDisabled)
         {
+#if NET6_0_OR_GREATER
             await JSRuntime.InvokeVoidAsync(UploaderElement, "bb_upload");
-            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/BootstrapBlazor/upload.js");
+            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/BootstrapBlazor/modules/upload.js");
             wrapper = DotNetObjectReference.Create(this);
-            dropInstance = await module!.InvokeAsync<IJSObjectReference>("init", wrapper, UploadElement, inputFile!.Element);
+            dropInstance = await module!.InvokeAsync<IJSObjectReference>("init", wrapper, UploadElement, inputFile.Element);
+#endif
         }
     }
 
