@@ -14,4 +14,10 @@ public interface IRecognizerProvider
     /// </summary>
     /// <returns></returns>
     Task InvokeAsync(RecognizerOption option);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [NotNull]
+    string? Name { get; set; }
 }
