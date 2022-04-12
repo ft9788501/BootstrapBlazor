@@ -34,10 +34,6 @@ public partial class BaiduSynthesizers
             ButtonIcon = "fa fa-fw fa-spin fa-spinner";
             await SynthesizerService.BaiduSynthesizerOnceAsync(InputText, Recognize);
         }
-        else
-        {
-            await Close();
-        }
     }
 
     private Task Recognize(SynthesizerStatus status)
@@ -58,10 +54,5 @@ public partial class BaiduSynthesizers
         }
         StateHasChanged();
         return Task.CompletedTask;
-    }
-
-    private async Task Close()
-    {
-        await SynthesizerService.CloseAsync(Recognize);
     }
 }
