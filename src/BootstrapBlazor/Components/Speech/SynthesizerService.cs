@@ -9,21 +9,22 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class SynthesizerService
 {
-    private ISynthesizerProvider Provider { get; }
+    private IEnumerable<ISynthesizerProvider> Providers { get; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="provider"></param>
-    public SynthesizerService(ISynthesizerProvider provider)
+    /// <param name="providers"></param>
+    public SynthesizerService(IEnumerable<ISynthesizerProvider> providers)
     {
-        Provider = provider;
+        Providers = providers;
     }
 
     /// <summary>
     /// 语音合成回调方法
     /// </summary>
     /// <param name="option"></param>
+    /// <param name="name"></param>
     /// <returns></returns>
-    public Task InvokeAsync(SynthesizerOption option) => Provider.InvokeAsync(option);
+    public Task InvokeAsync(string name, SynthesizerOption option) => Providers.FirstOrDefault(s => s.Name == name)!.InvokeAsync(option);
 }

@@ -14,6 +14,9 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 internal class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
 {
+    [NotNull]
+    public string? Name { get; set; } = "Azure";
+
     private DotNetObjectReference<AzureSynthesizerProvider>? Interop { get; set; }
 
     private IJSObjectReference? Module { get; set; }

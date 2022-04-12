@@ -29,8 +29,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRecognizerProvider, AzureRecognizerProvider>();
         services.TryAddSingleton<IConfigureOptions<AzureSpeechOption>, ConfigureOptions<AzureSpeechOption>>();
 
-        services.TryAddScoped<SynthesizerService>();
-        services.TryAddScoped<ISynthesizerProvider, AzureSynthesizerProvider>();
+        services.AddScoped<SynthesizerService>();
+        services.AddScoped<ISynthesizerProvider, AzureSynthesizerProvider>();
         services.TryAddSingleton<IConfigureOptions<AzureSpeechOption>, ConfigureOptions<AzureSpeechOption>>();
 
         services.Configure<AzureSpeechOption>(option =>

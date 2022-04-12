@@ -14,4 +14,9 @@ public interface ISynthesizerProvider
     /// </summary>
     /// <returns></returns>
     Task InvokeAsync(SynthesizerOption option);
+
+    /// <summary>
+    /// 获得/设置 服务名称
+    /// </summary>
+    string? Name { get; }
 }
