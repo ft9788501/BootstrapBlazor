@@ -2760,7 +2760,9 @@
     "SpeechIntro": "简介",
     "Recognizer": "语音识别 Recognizer",
     "Synthesizer": "语音合成 Synthesizer",
-    "SpeechWave": "语音波形图 SpeechWave"
+    "SpeechWave": "语音波形图 SpeechWave",
+    "BaiduRecognizers": "百度语音识别 Recognizer",
+    "BaiduSynthesizers": "百度语音合成 Synthesizer"
 
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {

@@ -170,6 +170,16 @@ public sealed partial class NavMenu
                 Text = Localizer["SpeechWave"],
                 Url = "speechwaves"
             },
+            new()
+            {
+                Text = Localizer["BaiduRecognizers"],
+                Url = "baidurecognizers"
+            },
+            new()
+            {
+                Text = Localizer["BaiduSynthesizers"],
+                Url = "baidusynthesizers"
+            },
         };
         AddBadge(item, count: 3);
     }
