@@ -69,7 +69,7 @@ namespace BootstrapBlazor.Components
         /// <param name="bytes"></param>
         /// <returns></returns>
         [JSInvokable]
-        public Task ReciveBuffers(Dictionary<string, int> bytes)
+        public Task ReciveBuffers(object bytes)
         {
             return Task.CompletedTask;
         }
