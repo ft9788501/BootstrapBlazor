@@ -61,7 +61,13 @@ internal class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
             }
             else
             {
-                var result = Client.Synthesis(option.Text);
+
+                var result = Client.Synthesis(option.Text, new Dictionary<string, object>
+                {
+                    {"spd", 5}, // 语速
+                    {"vol", 7}, // 音量
+                    {"per", 4}  // 发音人，4：情感度丫丫童声
+                });
             }
 
         }
