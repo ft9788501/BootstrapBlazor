@@ -34,7 +34,13 @@ internal static class ServicesExtensions
         services.AddBootstrapBlazor();
 
         //// 增加语音服务
-        //services.AddBootstrapBlazorAzureSpeech();
+        services.AddBootstrapBlazorAzureSpeech(option =>
+        {
+            option.AuthorizationTokenUrl = "https://aip.baidubce.com/oauth/2.0/token";
+            option.SubscriptionKey = "sadsadsa";
+            option.Region = "sadsad";
+
+        });
         // 增加语音服务
         services.AddBootstrapBlazorBaiduSpeech(option =>
         {

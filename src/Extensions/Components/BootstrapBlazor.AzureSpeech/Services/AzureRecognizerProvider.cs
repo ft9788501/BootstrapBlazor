@@ -14,6 +14,9 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
 {
+    [NotNull]
+    public string? Name { get; set; } = "Azure";
+
     private DotNetObjectReference<AzureRecognizerProvider>? Interop { get; set; }
 
     private IJSObjectReference? Module { get; set; }

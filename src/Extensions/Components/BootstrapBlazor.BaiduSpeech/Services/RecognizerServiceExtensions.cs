@@ -22,7 +22,7 @@ public static class RecognizerServiceExtensions
             MethodName = "bb_speech_init",
             Callback = callback
         };
-        await service.InvokeAsync(option);
+        await service.InvokeAsync("Baidu", option);
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public static class RecognizerServiceExtensions
             MethodName = "bb_speech_start",
             Callback = callback
         };
-        await service.InvokeAsync(option);
+        await service.InvokeAsync("Baidu", option);
     }
 
     /// <summary>
@@ -54,6 +54,6 @@ public static class RecognizerServiceExtensions
             MethodName = "bb_speech_close",
             Callback = callback
         };
-        await service.InvokeAsync(option);
+        await service.InvokeAsync("Baidu", option);
     }
 }

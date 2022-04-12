@@ -38,6 +38,6 @@ public static class RecognizerServiceExtensions
             MethodName = "bb_close",
             Callback = callback
         };
-        await service.InvokeAsync(option);
+        await service.InvokeAsync("Azure", option);
     }
 }

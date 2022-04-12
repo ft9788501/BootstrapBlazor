@@ -18,6 +18,5 @@ public interface IRecognizerProvider
     /// <summary>
     /// 
     /// </summary>
-    [NotNull]
-    string? Name { get; set; }
+    string? Name { get; }
 }

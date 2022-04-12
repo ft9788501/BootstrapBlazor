@@ -24,7 +24,8 @@ public class RecognizerService
     /// 语音识别回调方法
     /// </summary>
     /// <param name="option"></param>
+    /// <param name="name"></param>
     /// <returns></returns>
     public Task InvokeAsync(string name, RecognizerOption option) => Providers.FirstOrDefault(p => p.Name
-     == name)?.InvokeAsync(option);
+     == name)!.InvokeAsync(option);
 }

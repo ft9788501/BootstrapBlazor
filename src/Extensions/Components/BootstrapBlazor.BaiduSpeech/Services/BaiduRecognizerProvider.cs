@@ -12,6 +12,10 @@ namespace BootstrapBlazor.Components
 {
     internal class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     {
+
+        [NotNull]
+        public string? Name { get; set; } = "Baidu";
+
         private DotNetObjectReference<BaiduRecognizerProvider>? Interop { get; set; }
 
         private IJSObjectReference? Module { get; set; }
