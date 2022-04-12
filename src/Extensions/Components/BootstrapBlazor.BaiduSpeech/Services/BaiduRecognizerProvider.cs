@@ -93,7 +93,11 @@ namespace BootstrapBlazor.Components
                 sb.Append(item.ToString());
             }
 
-            await Option.Callback(sb.ToString());
+            if (Option.Callback != null)
+            {
+                await Option.Callback(sb.ToString());
+            }
+
         }
 
         /// <summary>
