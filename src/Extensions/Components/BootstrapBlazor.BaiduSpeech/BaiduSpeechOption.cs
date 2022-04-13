@@ -16,12 +16,6 @@ namespace BootstrapBlazor.Components;
 public class BaiduSpeechOption
 {
     /// <summary>
-    /// 获得/设置 AuthorizationToken 网址 由 Azure 提供
-    /// </summary>
-    [NotNull]
-    public string? AuthorizationTokenUrl { get; set; }
-
-    /// <summary>
     /// 获得/设置 Baidu AppId
     /// </summary>
     [NotNull]
@@ -38,9 +32,4 @@ public class BaiduSpeechOption
     /// </summary>
     [NotNull]
     public string? Secret { get; set; }
-
-    /// <summary>
-    /// 获得/设置 超时时长 默认 0 未设置
-    /// </summary>
-    public int Timeout { get; set; }
 }

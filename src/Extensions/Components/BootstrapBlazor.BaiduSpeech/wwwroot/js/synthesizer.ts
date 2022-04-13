@@ -1,4 +1,4 @@
-export function Generateaudio(obj: Obj, callback: String, data: Uint8Array) {
+export function bb_speech_synthesizerOnce(obj: Obj, callback: String, data: Uint8Array) {
     var blob = new Blob([data], { type: 'audio/mp3' });
     console.log(blob);
     var audio = document.createElement("audio");
