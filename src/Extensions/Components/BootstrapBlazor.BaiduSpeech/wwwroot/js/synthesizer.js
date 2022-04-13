@@ -14,6 +14,7 @@ export function bb_baidu_speech_synthesizerOnce(obj, callback, data) {
         audio = undefined;
         obj.invokeMethodAsync(callback, "Finished");
     });
+    obj.invokeMethodAsync(callback, "Synthesizer");
     audio.play();
 }
 

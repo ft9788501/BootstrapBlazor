@@ -53,20 +53,15 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
         }
         Interop ??= DotNetObjectReference.Create(this);
 
-        if (option.MethodName == "bb_baidu_speech_synthesizerOnce" && !string.IsNullOrEmpty(Option.Text))
+        if (Option.MethodName == "bb_baidu_speech_synthesizerOnce" && !string.IsNullOrEmpty(Option.Text))
         {
-            // 语音合成
-            if (option.Callback != null)
-            {
-                await option.Callback(SynthesizerStatus.Synthesizer);
-            }
-            var result = Client.Synthesis(option.Text);
-            await Module.InvokeVoidAsync(option.MethodName, Interop, nameof(Callback), result.Data);
+            var result = Client.Synthesis(Option.Text);
+            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), result.Data);
         }
-        else if (option.MethodName == "bb_baidu_close_synthesizer")
+        else if (Option.MethodName == "bb_baidu_close_synthesizer")
         {
             // 停止语音
-            await Module.InvokeVoidAsync(option.MethodName, Interop, nameof(Callback));
+            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback));
         }
     }
 
