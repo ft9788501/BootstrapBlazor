@@ -1,4 +1,4 @@
-let rec;
+﻿let rec;
 let isStart;
 let handler;
 export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCallback) {
