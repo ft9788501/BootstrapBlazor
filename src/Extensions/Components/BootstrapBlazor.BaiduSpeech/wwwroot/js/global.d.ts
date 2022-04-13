@@ -14,5 +14,5 @@ interface Options {
     type: String,
     sampleRate: Number,
     bitRate: Number,
-    onProcess: (buffers: any, powerLevel: any, bufferDuration: any, bufferSampleRate: any, newBufferIdx: any, asyncEnd: any) => void
+    onProcess?: (buffers: any, powerLevel: any, bufferDuration: any, bufferSampleRate: any, newBufferIdx: any, asyncEnd: any) => void
 }
