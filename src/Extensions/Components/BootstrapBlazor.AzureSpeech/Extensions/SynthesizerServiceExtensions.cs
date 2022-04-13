@@ -37,7 +37,7 @@ public static class SynthesizerServiceExtensions
     {
         var option = new SynthesizerOption()
         {
-            MethodName = "bb_tts_close",
+            MethodName = "bb_close_synthesizer",
             Callback = callback
         };
         await service.InvokeAsync(option);

@@ -1,14 +1,7 @@
 ﻿import { SpeechTranslationConfig, AudioConfig, TranslationRecognizer, SpeechSynthesizer, ResultReason } from 'microsoft-cognitiveservices-speech-sdk'
 
-var recognizer = null;
+var recognizer = undefined;
 var synthesizer = undefined;
-
-export function close(obj, method) {
-    if (recognizer != null) {
-        recognizer.close();
-    }
-    obj.invokeMethodAsync(method, '');
-}
 
 export function speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
 
@@ -21,11 +14,18 @@ export function speech_recognizeOnce(obj, method, token, region, recognitionLang
 
     recognizer.recognizeOnceAsync(function (successfulResult) {
         recognizer.close();
-        recognizer = null;
+        recognizer = undefined;
         obj.invokeMethodAsync(method, successfulResult.privText);
     }, function (err) {
         console.log(err);
     });
+}
+
+export function close_recognizer(obj, method) {
+    if (recognizer != undefined) {
+        recognizer.close();
+    }
+    obj.invokeMethodAsync(method, '');
 }
 
 export function speech_synthesizerOnce(obj, method, token, region, synthesizerLanguage, voiceName, inputText) {
@@ -56,19 +56,10 @@ export function speech_synthesizerOnce(obj, method, token, region, synthesizerLa
         });
 }
 
-export function tts_close(obj, method) {
-    if (synthesizer) {
+export function close_synthesizer(obj, method) {
+    if (synthesizer != undefined) {
         synthesizer.close();
         synthesizer = undefined;
         obj.invokeMethodAsync(method, "Close");
     }
 }
-
-
-
-
-
-
-
-
-

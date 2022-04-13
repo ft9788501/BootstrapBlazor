@@ -35,7 +35,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_close",
+            MethodName = "bb_close_recognizer",
             Callback = callback
         };
         await service.InvokeAsync(option);
