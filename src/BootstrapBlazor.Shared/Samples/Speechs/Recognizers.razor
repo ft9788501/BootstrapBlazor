@@ -1,4 +1,5 @@
-﻿@page "/azurerecognizers"
+﻿@page "/recognizers"
+@namespace BootstrapBlazor.Shared.Samples
 
 <h3>Recognizer 语音识别</h3>
 
@@ -13,7 +14,7 @@
             <Button Text="@ButtonText" OnClick="OnStart" />
         </div>
         <div class="col-12 col-sm-6">
-            <Textarea @bind-Value="Result" rows="6" />
+            <Textarea Value="@Result" rows="6" />
         </div>
     </div>
 </DemoBlock>

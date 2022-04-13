@@ -5,16 +5,21 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Shared.Samples.Speechs;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// 
 /// </summary>
-public partial class AzureRecognizers
+public partial class Recognizers
 {
     [Inject]
     [NotNull]
-    private RecognizerService? RecognizerService { get; set; }
+    private IEnumerable<IRecognizerProvider>? RecognizerProviders { get; set; }
+
+    [NotNull]
+    private IRecognizerProvider? RecognizerProvider { get; set; }
+
+    private IRecognizerProvider? AzureProvider { get; set; }
 
     private bool Start { get; set; }
 
@@ -22,13 +27,21 @@ public partial class AzureRecognizers
 
     private string ButtonText { get; set; } = "开始识别";
 
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        RecognizerProvider = RecognizerProviders.OfType<AzureRecognizerProvider>().FirstOrDefault();
+    }
+
     private async Task OnStart()
     {
         if (ButtonText == "开始识别")
         {
             Start = true;
             ButtonText = "结束识别";
-            await RecognizerService.RecognizeOnceAsync(Recognize);
+            await RecognizerProvider.AzureRecognizeOnceAsync(Recognize);
         }
         else
         {
@@ -52,6 +65,6 @@ public partial class AzureRecognizers
 
     private async Task Close()
     {
-        await RecognizerService.CloseAsync(Recognize);
+        await RecognizerProvider.AzureCloseAsync(Recognize);
     }
 }

@@ -5,16 +5,19 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Shared.Samples.Speechs;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// 
 /// </summary>
-public partial class AzureSynthesizers
+public partial class Synthesizers
 {
     [Inject]
     [NotNull]
-    private SynthesizerService? SynthesizerService { get; set; }
+    private IEnumerable<ISynthesizerProvider>? SynthesizerProviders { get; set; }
+
+    [NotNull]
+    private ISynthesizerProvider? SynthesizerProvider { get; set; }
 
     private bool Start { get; set; }
 
@@ -26,13 +29,21 @@ public partial class AzureSynthesizers
 
     private bool IsDisabled { get; set; }
 
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        SynthesizerProvider = SynthesizerProviders.OfType<AzureSynthesizerProvider>().FirstOrDefault();
+    }
+
     private async Task OnStart()
     {
         if (ButtonText == "开始合成")
         {
             IsDisabled = true;
             ButtonIcon = "fa fa-fw fa-spin fa-spinner";
-            await SynthesizerService.SynthesizerOnceAsync(InputText, Recognize);
+            await SynthesizerProvider.AzureSynthesizerOnceAsync(InputText, Recognize);
         }
         else
         {
@@ -60,8 +71,5 @@ public partial class AzureSynthesizers
         return Task.CompletedTask;
     }
 
-    private async Task Close()
-    {
-        await SynthesizerService.CloseAsync(Recognize);
-    }
+    private Task Close() => SynthesizerProvider.AzureCloseAsync(Recognize);
 }
