@@ -44,26 +44,29 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     /// <returns></returns>
     public async Task InvokeAsync(SynthesizerOption option)
     {
-        if (!string.IsNullOrEmpty(option.Text))
+        Option = option;
+
+        // 加载模块
+        if (Module == null)
         {
-            Option = option;
-            if (string.IsNullOrEmpty(option.MethodName))
-            {
-                var result = Client.Synthesis(option.Text);
-                if (Module == null)
-                {
-                    Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js");
-                }
-                Interop ??= DotNetObjectReference.Create(this);
-                await Module.InvokeVoidAsync("bb_baidu_speech_synthesizerOnce", Interop, nameof(Callback), result.Data);
-            }
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js");
         }
-        else
+        Interop ??= DotNetObjectReference.Create(this);
+
+        if (option.MethodName == "bb_baidu_speech_synthesizerOnce" && !string.IsNullOrEmpty(Option.Text))
         {
+            // 语音合成
             if (option.Callback != null)
             {
-                await option.Callback(SynthesizerStatus.Close);
+                await option.Callback(SynthesizerStatus.Synthesizer);
             }
+            var result = Client.Synthesis(option.Text);
+            await Module.InvokeVoidAsync(option.MethodName, Interop, nameof(Callback), result.Data);
+        }
+        else if (option.MethodName == "bb_baidu_close_synthesizer")
+        {
+            // 停止语音
+            await Module.InvokeVoidAsync(option.MethodName, Interop, nameof(Callback));
         }
     }
 

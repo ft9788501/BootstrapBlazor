@@ -33,4 +33,3 @@ export function bb_baidu_speech_close(obj, recognizerStatus, recognizeCallback) 
         });
     }
 }
-//# sourceMappingURL=recognizer.js.map

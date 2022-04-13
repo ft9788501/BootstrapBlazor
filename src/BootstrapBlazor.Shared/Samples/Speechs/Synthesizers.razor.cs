@@ -98,7 +98,6 @@ public partial class Synthesizers
         else
         {
             Start = false;
-            IsDisabled = false;
             ButtonIcon = "fa fa-fw fa-microphone";
             ButtonText = "开始合成";
         }
@@ -114,7 +113,7 @@ public partial class Synthesizers
         }
         else
         {
-            await SynthesizerProvider.AzureCloseAsync(Recognize);
+            await SynthesizerProvider.BaiduCloseAsync(Recognize);
         }
     }
 }

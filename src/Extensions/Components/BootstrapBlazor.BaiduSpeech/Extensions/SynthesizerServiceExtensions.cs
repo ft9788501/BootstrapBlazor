@@ -21,6 +21,7 @@ public static class SynthesizerServiceExtensions
         var option = new SynthesizerOption()
         {
             Text = text,
+            MethodName = "bb_baidu_speech_synthesizerOnce",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -38,6 +39,39 @@ public static class SynthesizerServiceExtensions
         var option = new SynthesizerOption()
         {
             Text = text,
+            MethodName = "bb_baidu_speech_synthesizerOnce",
+            Callback = callback
+        };
+        await provider.InvokeAsync(option);
+    }
+
+    /// <summary>
+    /// 关闭语音合成方法
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static async Task BaiduCloseAsync(this SynthesizerService service, Func<SynthesizerStatus, Task> callback)
+    {
+        var option = new SynthesizerOption()
+        {
+            MethodName = "bb_baidu_close_synthesizer",
+            Callback = callback
+        };
+        await service.InvokeAsync(option);
+    }
+
+    /// <summary>
+    /// 关闭语音合成方法
+    /// </summary>
+    /// <param name="provider"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static async Task BaiduCloseAsync(this ISynthesizerProvider provider, Func<SynthesizerStatus, Task> callback)
+    {
+        var option = new SynthesizerOption()
+        {
+            MethodName = "bb_baidu_close_synthesizer",
             Callback = callback
         };
         await provider.InvokeAsync(option);
