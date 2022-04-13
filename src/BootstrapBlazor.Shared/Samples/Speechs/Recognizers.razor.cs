@@ -27,21 +27,61 @@ public partial class Recognizers
 
     private string ButtonText { get; set; } = "开始识别";
 
+    private List<SelectedItem> SpeechItems { get; } = new List<SelectedItem>
+    {
+        new("Azure", "Azure 语音"),
+        new("Baidu", "Baidu 语音")
+    };
+
+    [NotNull]
+    private string? SpeechItem { get; set; } = "Azure";
+
+    [NotNull]
+    private Func<Func<string, Task>, Task>? RecognizerInvokeAsync { get; set; }
+
+    [NotNull]
+    private Func<Func<string, Task>, Task>? CloseInvokeAsync { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
-        RecognizerProvider = RecognizerProviders.OfType<AzureRecognizerProvider>().FirstOrDefault();
+        InitProvider();
+    }
+
+    private void InitProvider()
+    {
+        if (SpeechItem == "Azure")
+        {
+            RecognizerProvider = RecognizerProviders.OfType<AzureRecognizerProvider>().FirstOrDefault();
+            RecognizerInvokeAsync = RecognizerProvider.AzureRecognizeOnceAsync;
+            CloseInvokeAsync = RecognizerProvider.AzureCloseAsync;
+        }
+        else
+        {
+            RecognizerProvider = RecognizerProviders.OfType<BaiduRecognizerProvider>().FirstOrDefault();
+            RecognizerInvokeAsync = RecognizerProvider.BaiduRecognizeOnceAsync;
+            CloseInvokeAsync = RecognizerProvider.BaiduCloseAsync;
+        }
+    }
+    private Task OnSpeechProviderChanged(string value)
+    {
+        SpeechItem = value;
+        InitProvider();
+        return Task.CompletedTask;
     }
 
     private async Task OnStart()
     {
         if (ButtonText == "开始识别")
         {
-            Start = true;
-            ButtonText = "结束识别";
-            await RecognizerProvider.AzureRecognizeOnceAsync(Recognize);
+            if (SpeechItem == "Azure")
+            {
+                Start = true;
+                ButtonText = "结束识别";
+            }
+            await RecognizerInvokeAsync(Recognize);
         }
         else
         {
@@ -56,15 +96,20 @@ public partial class Recognizers
 
     private Task Recognize(string result)
     {
-        Result = result;
-        Start = false;
-        ButtonText = "开始识别";
+        if (SpeechItem == "Baidu" && result == "bb_start")
+        {
+            Start = true;
+            ButtonText = "结束识别";
+        }
+        else
+        {
+            Result = result;
+            Start = false;
+            ButtonText = "开始识别";
+        }
         StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private async Task Close()
-    {
-        await RecognizerProvider.AzureCloseAsync(Recognize);
-    }
+    private Task Close() => CloseInvokeAsync(Recognize);
 }
