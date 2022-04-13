@@ -5,7 +5,7 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Shared.Samples.Speechs;
 
 /// <summary>
 /// 
