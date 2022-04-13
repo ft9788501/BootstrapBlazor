@@ -51,7 +51,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_azure_close",
+            MethodName = "bb_azure_close_recognizer",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -67,7 +67,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_azure_close",
+            MethodName = "bb_azure_close_recognizer",
             Callback = callback
         };
         await provider.InvokeAsync(option);

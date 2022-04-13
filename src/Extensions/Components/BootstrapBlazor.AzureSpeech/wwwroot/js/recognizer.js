@@ -1,27 +1,9 @@
-﻿var recognizer = undefined;
+﻿import { speech_recognizeOnce, close_recognizer } from "./microsoft-cognitiveservices-speech-sdk-bundle.js"
 
 export function bb_azure_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
-    var SpeechSDK = window.SpeechSDK;
-    var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
-    speechConfig.speechRecognitionLanguage = recognitionLanguage;
-    speechConfig.addTargetLanguage(targetLanguage)
-
-    var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-    recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
-
-    recognizer.recognizeOnceAsync(function (successfulResult) {
-        recognizer.close();
-        recognizer = undefined;
-        obj.invokeMethodAsync(method, successfulResult.privText);
-    }, function (err) {
-        console.log(err);
-    });
+    speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage)
 }
 
-export function bb_azure_close(obj, method) {
-    if (recognizer != undefined) {
-        recognizer.close();
-        recognizer = undefined;
-    }
-    obj.invokeMethodAsync(method, '');
+export function bb_azure_close_recognizer(obj, method) {
+    close_recognizer(obj, method)
 }

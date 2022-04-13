@@ -55,7 +55,7 @@ public static class SynthesizerServiceExtensions
     {
         var option = new SynthesizerOption()
         {
-            MethodName = "bb_azure_close",
+            MethodName = "bb_azure_close_synthesizer",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -71,7 +71,7 @@ public static class SynthesizerServiceExtensions
     {
         var option = new SynthesizerOption()
         {
-            MethodName = "bb_azure_close",
+            MethodName = "bb_azure_close_synthesizer",
             Callback = callback
         };
         await provider.InvokeAsync(option);

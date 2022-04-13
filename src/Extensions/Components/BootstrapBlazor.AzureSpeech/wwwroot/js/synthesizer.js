@@ -1,38 +1,10 @@
-﻿var synthesizer = undefined;
+﻿import { speech_synthesizerOnce, close_synthesizer } from "./microsoft-cognitiveservices-speech-sdk-bundle.js"
 
 export function bb_azure_speech_synthesizerOnce(obj, method, token, region, synthesizerLanguage, voiceName, inputText) {
-    var SpeechSDK = window.SpeechSDK;
-    var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
-    speechConfig.speechSynthesisLanguage = synthesizerLanguage;
-    speechConfig.speechSynthesisVoiceName = voiceName;
-    var audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
-    synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
-    synthesizer.speakTextAsync(
-        inputText,
-        function (result) {
-            if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                console.log("synthesis finished for [" + inputText + "]");
-            } else if (result.reason === SpeechSDK.ResultReason.Canceled) {
-                console.log("synthesis failed. Error detail: " + result.errorDetails);
-            }
-            console.log(result);
-            synthesizer.close();
-            synthesizer = undefined;
-            obj.invokeMethodAsync(method, "Finished");
-        },
-        function (err) {
-            console.log(err);
-
-            synthesizer.close();
-            synthesizer = undefined;
-            obj.invokeMethodAsync(method, "Error");
-        });
+    console.log(inputText);
+    speech_recognizeOnce(obj, method, token, region, synthesizerLanguage, voiceName, inputText)
 }
 
-export function bb_azure_close(obj, method) {
-    if (synthesizer) {
-        synthesizer.close();
-        synthesizer = undefined;
-        obj.invokeMethodAsync(method, "Close");
-    }
+export function bb_azure_close_synthesizer(obj, method) {
+    close_synthesizer(obj, method);
 }
