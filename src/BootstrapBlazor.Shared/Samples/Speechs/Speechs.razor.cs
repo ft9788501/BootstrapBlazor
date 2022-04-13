@@ -126,10 +126,7 @@ public partial class Speechs
                 return Task.CompletedTask;
             }
         }
-        else
-        {
-            Show = false;
-        }
+        Show = false;
         ConsoleMessages.Add(new ConsoleMessageItem()
         {
             Message = result,
@@ -176,7 +173,15 @@ public partial class Speechs
         }
 
         await Task.Delay(3000);
-        await RecognizerProvider.AzureRecognizeOnceAsync(Confirm);
+
+        if (SpeechItem == "Azure")
+        {
+            await RecognizerProvider.AzureRecognizeOnceAsync(Confirm);
+        }
+        else
+        {
+            await RecognizerProvider.BaiduRecognizeOnceAsync(Confirm);
+        }
     }).ConfigureAwait(false);
 
     private async Task Confirm(string result)

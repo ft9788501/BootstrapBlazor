@@ -49,13 +49,7 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
             Option = option;
             if (string.IsNullOrEmpty(option.MethodName))
             {
-                var result = Client.Synthesis(option.Text, new Dictionary<string, object>
-                {
-                    {"spd", 5}, // 语速
-                    {"vol", 7}, // 音量
-                    {"per", 4}  // 发音人，4：情感度丫丫童声
-                });
-
+                var result = Client.Synthesis(option.Text);
                 if (Module == null)
                 {
                     Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js");
@@ -63,7 +57,6 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
                 Interop ??= DotNetObjectReference.Create(this);
                 await Module.InvokeVoidAsync("bb_baidu_speech_synthesizerOnce", Interop, nameof(Callback), result.Data);
             }
-
         }
         else
         {
