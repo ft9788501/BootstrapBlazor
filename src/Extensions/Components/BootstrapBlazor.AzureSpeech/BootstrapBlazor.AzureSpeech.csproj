@@ -10,8 +10,4 @@
     <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
-  </ItemGroup>
-
 </Project>
