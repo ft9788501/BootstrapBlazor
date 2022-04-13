@@ -57,7 +57,7 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/_content/BootstrapBlazor.BaiduSpeech/js/recognizer.js");
         }
         Interop ??= DotNetObjectReference.Create(this);
-        await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), nameof(TranslationOnce));
+        await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), nameof(RecognizeCallback));
     }
 
     /// <summary>
@@ -75,11 +75,11 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     }
 
     /// <summary>
-    /// TranslationOnce 回调方法
+    /// RecognizeCallback 回调方法
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TranslationOnce(byte[] bytes)
+    public async Task RecognizeCallback(byte[] bytes)
     {
         var result = Client.Recognize(bytes, "wav", 16000);
         var sb = new StringBuilder();

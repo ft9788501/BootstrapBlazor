@@ -1,5 +1,5 @@
 let rec;
-export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, translation) {
+export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCallback) {
     rec = new Recorder({ type: "wav", sampleRate: 16000, bitRate: 16 });
     rec.open(function () {
         rec.start();
@@ -7,17 +7,17 @@ export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, translation) 
         obj.invokeMethodAsync(beginRecognize, "bb_start");
         var handler = setTimeout(function () {
             clearTimeout(handler);
-            bb_baidu_speech_close(obj, translation);
+            bb_baidu_speech_close(obj, recognizeCallback);
         }, 5000);
     }, function (msg, isUserNotAllow) {
         console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
     });
 }
-export function bb_baidu_speech_close(obj, translation) {
+export function bb_baidu_speech_close(obj, recognizeCallback) {
     rec.stop((blob, duration) => {
         var reader = blob.stream().getReader();
         reader.read().then(value => {
-            obj.invokeMethodAsync(translation, value.value);
+            obj.invokeMethodAsync(recognizeCallback, value.value);
         });
     }, msg => { });
 }
