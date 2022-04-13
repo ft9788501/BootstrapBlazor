@@ -13,7 +13,7 @@ export function bb_baidu_speech_recognizeOnce(obj: Obj, beginRecognize: string, 
         obj.invokeMethodAsync(beginRecognize, "bb_start");
 
         handler = setTimeout(function () {
-            bb_baidu_speech_close(obj, "bb_finish", recognizeCallback);
+            bb_baidu_speech_close(obj, "bb_timeout", recognizeCallback);
         }, 5000);
     }, function (msg, isUserNotAllow) {
         console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
@@ -31,7 +31,7 @@ export function bb_baidu_speech_close(obj: Obj, recognizerStatus: string, recogn
         rec.stop((blob, duration) => {
             var reader = blob.stream().getReader();
             reader.read().then(value => {
-                obj.invokeMethodAsync(recognizeCallback, value.value);
+                obj.invokeMethodAsync(recognizeCallback, "bb_finish", value.value);
             })
         }, msg => {
             obj.invokeMethodAsync(recognizeCallback, "bb_error", null);

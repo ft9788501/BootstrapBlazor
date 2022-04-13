@@ -9,13 +9,13 @@ export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCall
         // 通知 UI 开始接收语音
         obj.invokeMethodAsync(beginRecognize, "bb_start");
         handler = setTimeout(function () {
-            bb_baidu_speech_close(obj, "Callback", recognizeCallback);
+            bb_baidu_speech_close(obj, "bb_timeout", recognizeCallback);
         }, 5000);
     }, function (msg, isUserNotAllow) {
         console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
     });
 }
-export function bb_baidu_speech_close(obj, callback, recognizeCallback) {
+export function bb_baidu_speech_close(obj, recognizerStatus, recognizeCallback) {
     console.log("close");
     if (handler != 0) {
         clearTimeout(handler);
@@ -26,9 +26,10 @@ export function bb_baidu_speech_close(obj, callback, recognizeCallback) {
         rec.stop((blob, duration) => {
             var reader = blob.stream().getReader();
             reader.read().then(value => {
-                obj.invokeMethodAsync(recognizeCallback, value.value);
+                obj.invokeMethodAsync(recognizeCallback, "bb_finish", value.value);
             });
         }, msg => {
+            obj.invokeMethodAsync(recognizeCallback, "bb_error", null);
         });
     }
 }
