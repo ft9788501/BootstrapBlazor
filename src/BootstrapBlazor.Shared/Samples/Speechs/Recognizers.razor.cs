@@ -19,8 +19,6 @@ public partial class Recognizers
     [NotNull]
     private IRecognizerProvider? RecognizerProvider { get; set; }
 
-    private IRecognizerProvider? AzureProvider { get; set; }
-
     private bool Start { get; set; }
 
     private string? Result { get; set; }

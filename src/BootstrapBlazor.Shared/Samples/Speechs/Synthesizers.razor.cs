@@ -29,12 +29,40 @@ public partial class Synthesizers
 
     private bool IsDisabled { get; set; }
 
+    private List<SelectedItem> SpeechItems { get; } = new List<SelectedItem>
+    {
+        new("Azure", "Azure 语音"),
+        new("Baidu", "Baidu 语音")
+    };
+
+    [NotNull]
+    private string? SpeechItem { get; set; } = "Azure";
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
-        SynthesizerProvider = SynthesizerProviders.OfType<AzureSynthesizerProvider>().FirstOrDefault();
+        InitProvider();
+    }
+
+    private void InitProvider()
+    {
+        if (SpeechItem == "Azure")
+        {
+            SynthesizerProvider = SynthesizerProviders.OfType<AzureSynthesizerProvider>().FirstOrDefault();
+        }
+        else
+        {
+            SynthesizerProvider = SynthesizerProviders.OfType<BaiduSynthesizerProvider>().FirstOrDefault();
+        }
+    }
+
+    private Task OnSpeechProviderChanged(string value)
+    {
+        SpeechItem = value;
+        InitProvider();
+        return Task.CompletedTask;
     }
 
     private async Task OnStart()
