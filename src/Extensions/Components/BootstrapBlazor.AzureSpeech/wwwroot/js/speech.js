@@ -2,7 +2,7 @@
 var synthesizer = undefined;
 var player = undefined;
 
-export function bb_load_speech() {
+function bb_load_speech() {
     const sdk = '_content/BootstrapBlazor.AzureSpeech/js/microsoft.cognitiveservices.speech.sdk.bundle.js';
     const links = [...document.getElementsByTagName('script')];
     var link = links.filter(function (link) {
@@ -13,15 +13,6 @@ export function bb_load_speech() {
         link.setAttribute('src', sdk);
         document.body.appendChild(link);
     }
-    //for (var index = 0; index < links.length; index++) {
-    //    if (links[index]['href'].indexOf(href) != -1)
-    //        return true;
-    //}
-    //const link = document.createElement("link");
-    //link.setAttribute("rel", "stylesheet");
-    //link.setAttribute("href", href);
-    //document.getElementsByTagName("head")[0].appendChild(link);
-    //return true;
 }
 
 export function bb_azure_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
@@ -52,7 +43,7 @@ export function bb_azure_speech_recognizeOnce(obj, method, token, region, recogn
 
                 azure_recognizer();
             }
-        }, 200);
+        }, 100);
     }
     else {
         azure_recognizer();

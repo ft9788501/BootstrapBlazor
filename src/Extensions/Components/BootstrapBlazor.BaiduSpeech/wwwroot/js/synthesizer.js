@@ -16,7 +16,7 @@ export function bb_baidu_speech_synthesizerOnce(obj, callback, data) {
     });
     obj.invokeMethodAsync(callback, "Synthesizer");
     audio.play();
-}
+};
 
 export function bb_baidu_close_synthesizer(obj, callback) {
     if (audio != undefined) {
@@ -24,4 +24,4 @@ export function bb_baidu_close_synthesizer(obj, callback) {
         document.body.removeChild(audio);
     }
     obj.invokeMethodAsync(callback, "Finished");
-}
+};
