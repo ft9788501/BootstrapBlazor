@@ -30,12 +30,12 @@ public static class ServiceCollectionExtension
         services.AddHttpClient();
         services.AddMemoryCache();
 
-        services.AddScoped<RecognizerService>();
-        services.AddScoped<IRecognizerProvider, BaiduRecognizerProvider>();
+        services.TryAddScoped<RecognizerService>();
+        services.TryAddScoped<IRecognizerProvider, BaiduRecognizerProvider>();
         services.TryAddSingleton<IConfigureOptions<BaiduSpeechOption>, ConfigureOptions<BaiduSpeechOption>>();
 
-        services.AddScoped<SynthesizerService>();
-        services.AddScoped<ISynthesizerProvider, BaiduSynthesizerProvider>();
+        services.TryAddScoped<SynthesizerService>();
+        services.TryAddScoped<ISynthesizerProvider, BaiduSynthesizerProvider>();
         services.TryAddSingleton<IConfigureOptions<BaiduSpeechOption>, ConfigureOptions<BaiduSpeechOption>>();
 
         services.Configure<BaiduSpeechOption>(option =>
