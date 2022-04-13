@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "argo",
+  "license": "MIT",
   "dependencies": {
     "microsoft-cognitiveservices-speech-sdk": "^1.20.0",
     "webpack": "^4.46.0",

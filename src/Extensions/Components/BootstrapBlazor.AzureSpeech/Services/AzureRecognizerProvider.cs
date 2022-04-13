@@ -68,7 +68,7 @@ internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
         Option = option;
         if (Module == null)
         {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/microsoft-cognitiveservices-speech-sdk-bundle.js");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/recognizer.js");
         }
         Interop ??= DotNetObjectReference.Create(this);
         await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), token, SpeechOption.Region, option.SpeechRecognitionLanguage, option.TargetLanguage);
