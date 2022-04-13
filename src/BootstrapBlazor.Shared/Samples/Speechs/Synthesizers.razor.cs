@@ -71,7 +71,14 @@ public partial class Synthesizers
         {
             IsDisabled = true;
             ButtonIcon = "fa fa-fw fa-spin fa-spinner";
-            await SynthesizerProvider.AzureSynthesizerOnceAsync(InputText, Recognize);
+            if (SpeechItem == "Azure")
+            {
+                await SynthesizerProvider.AzureSynthesizerOnceAsync(InputText, Recognize);
+            }
+            else
+            {
+                await SynthesizerProvider.BaiduSynthesizerOnceAsync(InputText, Recognize);
+            }
         }
         else
         {
@@ -99,5 +106,15 @@ public partial class Synthesizers
         return Task.CompletedTask;
     }
 
-    private Task Close() => SynthesizerProvider.AzureCloseAsync(Recognize);
+    private async Task Close()
+    {
+        if (SpeechItem == "Azure")
+        {
+            await SynthesizerProvider.AzureCloseAsync(Recognize);
+        }
+        else
+        {
+            await SynthesizerProvider..AzureCloseAsync(Recognize);
+        }
+    }
 }
