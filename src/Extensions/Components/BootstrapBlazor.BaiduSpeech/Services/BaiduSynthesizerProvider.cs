@@ -8,13 +8,10 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 百度语音合成提供类
 /// </summary>
-internal class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
+public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
 {
-    [NotNull]
-    public string? Name { get; set; } = "Baidu";
-
     private DotNetObjectReference<BaiduSynthesizerProvider>? Interop { get; set; }
 
     private IJSObjectReference? Module { get; set; }
@@ -64,7 +61,7 @@ internal class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
                     Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js");
                 }
                 Interop ??= DotNetObjectReference.Create(this);
-                await Module.InvokeVoidAsync("Generateaudio", Interop, nameof(Callback), result.Data);
+                await Module.InvokeVoidAsync("bb_speech_synthesizerOnce", Interop, nameof(Callback), result.Data);
             }
 
         }

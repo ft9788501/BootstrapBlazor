@@ -10,13 +10,10 @@ using System.Net.Http.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Azure 语音识别提供类
 /// </summary>
-internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
+public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
 {
-    [NotNull]
-    public string? Name { get; set; } = "Azure";
-
     private DotNetObjectReference<AzureRecognizerProvider>? Interop { get; set; }
 
     private IJSObjectReference? Module { get; set; }
@@ -54,7 +51,7 @@ internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     }
 
     /// <summary>
-    /// 
+    /// 回调方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>

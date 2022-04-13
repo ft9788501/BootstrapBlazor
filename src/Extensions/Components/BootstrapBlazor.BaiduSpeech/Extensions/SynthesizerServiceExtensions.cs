@@ -23,6 +23,23 @@ public static class SynthesizerServiceExtensions
             Text = text,
             Callback = callback
         };
-        await service.InvokeAsync("Baidu", option);
+        await service.InvokeAsync(option);
+    }
+
+    /// <summary>
+    /// 语音合成方法
+    /// </summary>
+    /// <param name="provider"></param>
+    /// <param name="text"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static async Task BaiduSynthesizerOnceAsync(this ISynthesizerProvider provider, string? text, Func<SynthesizerStatus, Task> callback)
+    {
+        var option = new SynthesizerOption()
+        {
+            Text = text,
+            Callback = callback
+        };
+        await provider.InvokeAsync(option);
     }
 }

@@ -16,7 +16,7 @@ public static class SynthesizerServiceExtensions
     /// <param name="text"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task SynthesizerOnceAsync(this SynthesizerService service, string? text, Func<SynthesizerStatus, Task> callback)
+    public static async Task AzureSynthesizerOnceAsync(this SynthesizerService service, string? text, Func<SynthesizerStatus, Task> callback)
     {
         var option = new SynthesizerOption()
         {
@@ -24,7 +24,25 @@ public static class SynthesizerServiceExtensions
             MethodName = "bb_speech_synthesizerOnce",
             Callback = callback
         };
-        await service.InvokeAsync("Azure", option);
+        await service.InvokeAsync(option);
+    }
+
+    /// <summary>
+    /// 语音合成方法
+    /// </summary>
+    /// <param name="provider"></param>
+    /// <param name="text"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static async Task AzureSynthesizerOnceAsync(this ISynthesizerProvider provider, string? text, Func<SynthesizerStatus, Task> callback)
+    {
+        var option = new SynthesizerOption()
+        {
+            Text = text,
+            MethodName = "bb_speech_synthesizerOnce",
+            Callback = callback
+        };
+        await provider.InvokeAsync(option);
     }
 
     /// <summary>
@@ -33,13 +51,29 @@ public static class SynthesizerServiceExtensions
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task CloseAsync(this SynthesizerService service, Func<SynthesizerStatus, Task> callback)
+    public static async Task AzureCloseAsync(this SynthesizerService service, Func<SynthesizerStatus, Task> callback)
     {
         var option = new SynthesizerOption()
         {
             MethodName = "bb_close",
             Callback = callback
         };
-        await service.InvokeAsync("Azure", option);
+        await service.InvokeAsync(option);
+    }
+
+    /// <summary>
+    /// 关闭语音合成方法
+    /// </summary>
+    /// <param name="provider"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static async Task AzureCloseAsync(this ISynthesizerProvider provider, Func<SynthesizerStatus, Task> callback)
+    {
+        var option = new SynthesizerOption()
+        {
+            MethodName = "bb_close",
+            Callback = callback
+        };
+        await provider.InvokeAsync(option);
     }
 }
