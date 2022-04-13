@@ -1,5 +1,7 @@
 let rec;
+let isStart;
 export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCallback) {
+    isStart = true;
     rec = new Recorder({ type: "wav", sampleRate: 16000, bitRate: 16 });
     rec.open(function () {
         rec.start();
@@ -14,11 +16,16 @@ export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCall
     });
 }
 export function bb_baidu_speech_close(obj, recognizeCallback) {
-    rec.stop((blob, duration) => {
-        var reader = blob.stream().getReader();
-        reader.read().then(value => {
-            obj.invokeMethodAsync(recognizeCallback, value.value);
+    console.log("close");
+    if (isStart) {
+        isStart = false;
+        rec.stop((blob, duration) => {
+            var reader = blob.stream().getReader();
+            reader.read().then(value => {
+                obj.invokeMethodAsync(recognizeCallback, value.value);
+            });
+        }, msg => {
         });
-    }, msg => { });
+    }
 }
 //# sourceMappingURL=recognizer.js.map
