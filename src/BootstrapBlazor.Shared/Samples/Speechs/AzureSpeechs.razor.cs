@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// Speechs 示例
 /// </summary>
-public partial class Speechs
+public partial class AzureSpeechs
 {
     [Inject]
     [NotNull]

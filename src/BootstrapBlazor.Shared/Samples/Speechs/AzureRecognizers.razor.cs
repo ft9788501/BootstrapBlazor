@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// 
 /// </summary>
-public partial class Recognizers
+public partial class AzureRecognizers
 {
     [Inject]
     [NotNull]

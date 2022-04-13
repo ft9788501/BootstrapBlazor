@@ -118,7 +118,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.FontAwesome
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.AzureSpeech", "src\Extensions\Components\BootstrapBlazor.AzureSpeech\BootstrapBlazor.AzureSpeech.csproj", "{42108A8A-C773-4F35-A870-3673BDD383E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.BaiduSpeech", "src\Extensions\Components\BootstrapBlazor.BaiduSpeech\BootstrapBlazor.BaiduSpeech.csproj", "{4ED606D8-D252-4573-8F0F-B69502ADB7ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.BaiduSpeech", "src\Extensions\Components\BootstrapBlazor.BaiduSpeech\BootstrapBlazor.BaiduSpeech.csproj", "{4ED606D8-D252-4573-8F0F-B69502ADB7ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

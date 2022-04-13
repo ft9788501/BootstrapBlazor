@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// 
 /// </summary>
-public partial class Synthesizers
+public partial class AzureSynthesizers
 {
     [Inject]
     [NotNull]

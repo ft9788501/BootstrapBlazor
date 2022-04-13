@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// 
 /// </summary>
-public partial class BaiduSpeech
+public partial class BaiduRecognizer
 {
     [Inject]
     [NotNull]
