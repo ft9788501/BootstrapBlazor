@@ -21,7 +21,7 @@ public static class SynthesizerServiceExtensions
         var option = new SynthesizerOption()
         {
             Text = text,
-            MethodName = "bb_speech_synthesizerOnce",
+            MethodName = "bb_azure_speech_synthesizerOnce",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -37,7 +37,7 @@ public static class SynthesizerServiceExtensions
     {
         var option = new SynthesizerOption()
         {
-            MethodName = "bb_close_synthesizer",
+            MethodName = "bb_azure_close_synthesizer",
             Callback = callback
         };
         await service.InvokeAsync(option);
