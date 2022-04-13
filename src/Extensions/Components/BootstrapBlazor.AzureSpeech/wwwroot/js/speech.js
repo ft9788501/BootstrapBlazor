@@ -2,21 +2,61 @@
 var synthesizer = undefined;
 var player = undefined;
 
-export function bb_azure_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
-    var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
-    speechConfig.speechRecognitionLanguage = recognitionLanguage;
-    speechConfig.addTargetLanguage(targetLanguage)
-
-    var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-    recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
-
-    recognizer.recognizeOnceAsync(function (successfulResult) {
-        recognizer.close();
-        recognizer = undefined;
-        obj.invokeMethodAsync(method, successfulResult.privText);
-    }, function (err) {
-        console.log(err);
+export function bb_load_speech() {
+    const sdk = '_content/BootstrapBlazor.AzureSpeech/js/microsoft.cognitiveservices.speech.sdk.bundle.js';
+    const links = [...document.getElementsByTagName('script')];
+    var link = links.filter(function (link) {
+        return link.src.indexOf(sdk) > -1;
     });
+    if (link.length === 0) {
+        link = document.createElement('script');
+        link.setAttribute('src', sdk);
+        document.body.appendChild(link);
+    }
+    //for (var index = 0; index < links.length; index++) {
+    //    if (links[index]['href'].indexOf(href) != -1)
+    //        return true;
+    //}
+    //const link = document.createElement("link");
+    //link.setAttribute("rel", "stylesheet");
+    //link.setAttribute("href", href);
+    //document.getElementsByTagName("head")[0].appendChild(link);
+    //return true;
+}
+
+export function bb_azure_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
+    var azure_recognizer = function () {
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
+        speechConfig.speechRecognitionLanguage = recognitionLanguage;
+        speechConfig.addTargetLanguage(targetLanguage)
+
+        var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+        recognizer.recognizeOnceAsync(function (successfulResult) {
+            recognizer.close();
+            recognizer = undefined;
+            obj.invokeMethodAsync(method, successfulResult.privText);
+        }, function (err) {
+            console.log(err);
+        });
+
+    };
+
+    bb_load_speech();
+
+    if (window.SpeechSDK === undefined) {
+        var handler = window.setInterval(function () {
+            if (window.SpeechSDK) {
+                window.clearInterval(handler);
+
+                azure_recognizer();
+            }
+        }, 200);
+    }
+    else {
+        azure_recognizer();
+    }
 }
 
 export function bb_azure_close_recognizer(obj, method) {
@@ -27,37 +67,54 @@ export function bb_azure_close_recognizer(obj, method) {
 }
 
 export function bb_azure_speech_synthesizerOnce(obj, method, token, region, synthesizerLanguage, voiceName, inputText) {
-    player = new SpeechSDK.SpeakerAudioDestination();
-    player.onAudioEnd = function () {
-        player = undefined;
-        obj.invokeMethodAsync(method, "Finished");
+    var azure_synthesizer = function () {
+        player = new SpeechSDK.SpeakerAudioDestination();
+        player.onAudioEnd = function () {
+            player = undefined;
+            obj.invokeMethodAsync(method, "Finished");
+        };
+
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
+        speechConfig.speechSynthesisLanguage = synthesizerLanguage;
+        speechConfig.speechSynthesisVoiceName = voiceName;
+        var audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
+        synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+
+        synthesizer.speakTextAsync(
+            inputText,
+            function (result) {
+                //if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+                //    console.log("synthesis finished for [" + inputText + "]");
+                //} else if (result.reason === SpeechSDK.ResultReason.Canceled) {
+                //    console.log("synthesis failed. Error detail: " + result.errorDetails);
+                //}
+                obj.invokeMethodAsync(method, "Synthesizer");
+                synthesizer.close();
+                synthesizer = undefined;
+            },
+            function (err) {
+                console.log(err);
+
+                synthesizer.close();
+                synthesizer = undefined;
+                obj.invokeMethodAsync(method, "Error");
+            });
     };
 
-    var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
-    speechConfig.speechSynthesisLanguage = synthesizerLanguage;
-    speechConfig.speechSynthesisVoiceName = voiceName;
-    var audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
-    synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+    bb_load_speech();
 
-    synthesizer.speakTextAsync(
-        inputText,
-        function (result) {
-            //if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-            //    console.log("synthesis finished for [" + inputText + "]");
-            //} else if (result.reason === SpeechSDK.ResultReason.Canceled) {
-            //    console.log("synthesis failed. Error detail: " + result.errorDetails);
-            //}
-            obj.invokeMethodAsync(method, "Synthesizer");
-            synthesizer.close();
-            synthesizer = undefined;
-        },
-        function (err) {
-            console.log(err);
+    if (window.SpeechSDK === undefined) {
+        var handler = window.setInterval(function () {
+            if (window.SpeechSDK) {
+                window.clearInterval(handler);
 
-            synthesizer.close();
-            synthesizer = undefined;
-            obj.invokeMethodAsync(method, "Error");
-        });
+                azure_synthesizer();
+            }
+        }, 200);
+    }
+    else {
+        azure_synthesizer();
+    }
 }
 
 export function bb_azure_close_synthesizer(obj, method) {
