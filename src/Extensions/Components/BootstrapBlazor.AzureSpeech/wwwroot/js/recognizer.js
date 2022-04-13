@@ -1,6 +1,6 @@
 ﻿var recognizer = undefined;
 
-export function bb_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
+export function bb_azure_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
     var SpeechSDK = window.SpeechSDK;
     var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
     speechConfig.speechRecognitionLanguage = recognitionLanguage;
@@ -18,7 +18,7 @@ export function bb_speech_recognizeOnce(obj, method, token, region, recognitionL
     });
 }
 
-export function bb_close(obj, method) {
+export function bb_azure_close(obj, method) {
     if (recognizer != undefined) {
         recognizer.close();
         recognizer = undefined;

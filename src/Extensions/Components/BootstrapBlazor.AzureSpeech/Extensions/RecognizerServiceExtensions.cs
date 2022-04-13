@@ -19,7 +19,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_speech_recognizeOnce",
+            MethodName = "bb_azure_speech_recognizeOnce",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -35,7 +35,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_speech_recognizeOnce",
+            MethodName = "bb_azure_speech_recognizeOnce",
             Callback = callback
         };
         await provider.InvokeAsync(option);
@@ -51,7 +51,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_close",
+            MethodName = "bb_azure_close",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -67,7 +67,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_close",
+            MethodName = "bb_azure_close",
             Callback = callback
         };
         await provider.InvokeAsync(option);

@@ -1,6 +1,6 @@
 ﻿var synthesizer = undefined;
 
-export function bb_speech_synthesizerOnce(obj, method, token, region, synthesizerLanguage, voiceName, inputText) {
+export function bb_azure_speech_synthesizerOnce(obj, method, token, region, synthesizerLanguage, voiceName, inputText) {
     var SpeechSDK = window.SpeechSDK;
     var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
     speechConfig.speechSynthesisLanguage = synthesizerLanguage;
@@ -29,7 +29,7 @@ export function bb_speech_synthesizerOnce(obj, method, token, region, synthesize
         });
 }
 
-export function bb_close(obj, method) {
+export function bb_azure_close(obj, method) {
     if (synthesizer) {
         synthesizer.close();
         synthesizer = undefined;

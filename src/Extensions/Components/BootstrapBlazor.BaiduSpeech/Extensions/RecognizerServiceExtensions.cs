@@ -15,11 +15,11 @@ public static class RecognizerServiceExtensions
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task BaiduRecognizeInit(this RecognizerService service, Func<string, Task> callback)
+    public static async Task BaiduRecognizeOnceAsync(this RecognizerService service, Func<string, Task> callback)
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_speech_init",
+            MethodName = "bb_baidu_speech_recognizeOnce",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -31,43 +31,11 @@ public static class RecognizerServiceExtensions
     /// <param name="provider"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task BaiduRecognizeInit(this IRecognizerProvider provider, Func<string, Task> callback)
+    public static async Task BaiduRecognizeOnceAsync(this IRecognizerProvider provider, Func<string, Task> callback)
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_speech_init",
-            Callback = callback
-        };
-        await provider.InvokeAsync(option);
-    }
-
-    /// <summary>
-    /// 语音识别方法
-    /// </summary>
-    /// <param name="service"></param>
-    /// <param name="callback"></param>
-    /// <returns></returns>
-    public static async Task BaiduRecognizeStart(this RecognizerService service, Func<string, Task> callback)
-    {
-        var option = new RecognizerOption()
-        {
-            MethodName = "bb_speech_start",
-            Callback = callback
-        };
-        await service.InvokeAsync(option);
-    }
-
-    /// <summary>
-    /// 语音识别方法
-    /// </summary>
-    /// <param name="provider"></param>
-    /// <param name="callback"></param>
-    /// <returns></returns>
-    public static async Task BaiduRecognizeStart(this IRecognizerProvider provider, Func<string, Task> callback)
-    {
-        var option = new RecognizerOption()
-        {
-            MethodName = "bb_speech_start",
+            MethodName = "bb_baidu_speech_recognizeOnce",
             Callback = callback
         };
         await provider.InvokeAsync(option);
@@ -83,7 +51,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_speech_close",
+            MethodName = "bb_baidu_speech_close",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -99,7 +67,7 @@ public static class RecognizerServiceExtensions
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_speech_close",
+            MethodName = "bb_baidu_speech_close",
             Callback = callback
         };
         await provider.InvokeAsync(option);

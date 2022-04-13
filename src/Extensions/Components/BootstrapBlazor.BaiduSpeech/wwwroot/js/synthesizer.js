@@ -1,4 +1,4 @@
-export function bb_speech_synthesizerOnce(obj, callback, data) {
+export function bb_baidu_speech_synthesizerOnce(obj, callback, data) {
     var blob = new Blob([data], { type: 'audio/mp3' });
     console.log(blob);
     var audio = document.createElement("audio");

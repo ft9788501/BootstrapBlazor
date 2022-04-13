@@ -58,7 +58,6 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
         }
         Interop ??= DotNetObjectReference.Create(this);
         await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), nameof(ReciveBuffers), nameof(TranslationOnce));
-
     }
 
     /// <summary>

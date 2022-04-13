@@ -1,7 +1,6 @@
-
 let rec: Recorder;
 
-export function bb_speech_init(obj: Obj, callback: String, method: String) {
+export function bb_baidu_speech_recognizeOnce() {
     rec = new Recorder({
         type: "wav", sampleRate: 16000, bitRate: 16, onProcess: (buffers, powerLevel, bufferDuration, bufferSampleRate, newBufferIdx, asyncEnd) => {
             var buffer = new Uint16Array([0x45, 0x76, 0x65, 0x72, 0x79, 0x74, 0x68, 0x69,
@@ -13,16 +12,13 @@ export function bb_speech_init(obj: Obj, callback: String, method: String) {
     });
 
     rec.open(function () {
+        rec.start();
     }, function (msg, isUserNotAllow) {
         console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
     });
 }
 
-export function bb_speech_start() {
-    rec.start();
-}
-
-export function bb_speech_close(obj: Obj, callback: String, method: String, translation: String) {
+export function bb_baidu_close(obj: Obj, callback: String, method: String, translation: String) {
     rec.stop((blob, duration) => {
         var reader = blob.stream().getReader();
         reader.read().then(value => {
