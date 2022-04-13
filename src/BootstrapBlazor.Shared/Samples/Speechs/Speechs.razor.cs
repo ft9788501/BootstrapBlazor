@@ -99,7 +99,11 @@ public partial class Speechs
     {
         // 示例代码，由于注入两种语音服务 Baidu 语音晚于 Azure 内部服务注册 故默认获取的 语音提供服务均为 BaiduProvider 需要 手动构建
         // 实际生产中使用 Baidu 语音示例代码即可
-        Show = true;
+
+        if (SpeechItem == "Azure")
+        {
+            Show = true;
+        }
 
         if (SpeechItem == "Azure")
         {
@@ -113,7 +117,19 @@ public partial class Speechs
 
     private Task Recognizer(string result)
     {
-        Show = false;
+        if (SpeechItem == "Baidu")
+        {
+            if (result == "bb_start")
+            {
+                Show = true;
+                StateHasChanged();
+                return Task.CompletedTask;
+            }
+        }
+        else
+        {
+            Show = false;
+        }
         ConsoleMessages.Add(new ConsoleMessageItem()
         {
             Message = result,
@@ -153,8 +169,11 @@ public partial class Speechs
 
     private void RecognizerConfirm() => Task.Run(async () =>
     {
-        Show = true;
-        await InvokeAsync(StateHasChanged);
+        if (SpeechItem == "Azure")
+        {
+            Show = true;
+            await InvokeAsync(StateHasChanged);
+        }
 
         await Task.Delay(3000);
         await RecognizerProvider.AzureRecognizeOnceAsync(Confirm);

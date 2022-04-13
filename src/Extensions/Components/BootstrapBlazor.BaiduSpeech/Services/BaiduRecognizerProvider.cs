@@ -93,7 +93,6 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
         {
             await Option.Callback(sb.ToString());
         }
-
     }
 
     /// <summary>
