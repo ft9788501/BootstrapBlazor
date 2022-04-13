@@ -54,7 +54,7 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
         Option = option;
         if (Module == null)
         {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/_content/BootstrapBlazor.BaiduSpeech/js/recognizer.js");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/_content/BootstrapBlazor.BaiduSpeech/js/recognizer-bundle.js");
         }
         Interop ??= DotNetObjectReference.Create(this);
         await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), nameof(RecognizeCallback));
