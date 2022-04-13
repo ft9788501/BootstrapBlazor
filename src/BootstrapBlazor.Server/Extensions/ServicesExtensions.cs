@@ -58,7 +58,8 @@ internal static class ServicesExtensions
             options.AdditionalJsonAssemblies = new Assembly[]
             {
                 typeof(BootstrapBlazor.Shared.App).Assembly,
-                typeof(BootstrapBlazor.Components.Chart).Assembly
+                typeof(BootstrapBlazor.Components.Chart).Assembly,
+                typeof(BootstrapBlazor.Components.SignaturePad).Assembly
             };
         });
 
