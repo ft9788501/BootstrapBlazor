@@ -51,6 +51,9 @@ public partial class Speechs
     [NotNull]
     private string? SpeechItem { get; set; } = "Azure";
 
+    [NotNull]
+    private Func<string, Func<SynthesizerStatus, Task>, Task>? SynthesizerInvokeAsync { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -104,7 +107,7 @@ public partial class Speechs
         }
         else
         {
-            //await RecognizerProvider.BaiduRecognizeOnceAsync(Recognizer);
+            await RecognizerProvider.BaiduRecognizeOnceAsync(Recognizer);
         }
     }
 
@@ -127,7 +130,15 @@ public partial class Speechs
         if (CheckReceivedData(result))
         {
             var text = "您确认要把灯打开吗？请确认";
-            await SynthesizerProvider.AzureSynthesizerOnceAsync(text, async status =>
+            if (SpeechItem == "Azure")
+            {
+                SynthesizerInvokeAsync = SynthesizerProvider.AzureSynthesizerOnceAsync;
+            }
+            else
+            {
+                SynthesizerInvokeAsync = SynthesizerProvider.BaiduSynthesizerOnceAsync;
+            }
+            await SynthesizerInvokeAsync(text, async status =>
             {
                 ConsoleMessages.Add(new ConsoleMessageItem()
                 {
