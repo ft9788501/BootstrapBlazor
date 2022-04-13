@@ -1,7 +1,8 @@
 let rec: Recorder;
-let isStart: Boolean;
+let isStart: boolean;
+let handler: number
 
-export function bb_baidu_speech_recognizeOnce(obj: Obj, beginRecognize: String, recognizeCallback: String) {
+export function bb_baidu_speech_recognizeOnce(obj: Obj, beginRecognize: string, recognizeCallback: string) {
     isStart = true;
     rec = new Recorder({ type: "wav", sampleRate: 16000, bitRate: 16 });
 
@@ -11,17 +12,20 @@ export function bb_baidu_speech_recognizeOnce(obj: Obj, beginRecognize: String, 
         // 通知 UI 开始接收语音
         obj.invokeMethodAsync(beginRecognize, "bb_start");
 
-        var handler = setTimeout(function () {
-            clearTimeout(handler);
-            bb_baidu_speech_close(obj, recognizeCallback);
+        handler = setTimeout(function () {
+            bb_baidu_speech_close(obj, "Callback", recognizeCallback);
         }, 5000);
     }, function (msg, isUserNotAllow) {
         console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
     });
 }
 
-export function bb_baidu_speech_close(obj: Obj, recognizeCallback: String) {
+export function bb_baidu_speech_close(obj: Obj, callback: string, recognizeCallback: string) {
     console.log("close");
+    if (handler != 0) {
+        clearTimeout(handler);
+        handler = 0;
+    }
     if (isStart) {
         isStart = false;
         rec.stop((blob, duration) => {
