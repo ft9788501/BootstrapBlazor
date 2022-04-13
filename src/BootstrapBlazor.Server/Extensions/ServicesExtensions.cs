@@ -33,25 +33,6 @@ internal static class ServicesExtensions
         // 增加 BootstrapBlazor 组件
         services.AddBootstrapBlazor();
 
-        //// 增加语音服务
-        services.AddBootstrapBlazorAzureSpeech(option =>
-        {
-            option.AuthorizationTokenUrl = "https://aip.baidubce.com/oauth/2.0/token";
-            option.SubscriptionKey = "sadsadsa";
-            option.Region = "sadsad";
-
-        });
-        // 增加语音服务
-        services.AddBootstrapBlazorBaiduSpeech(option =>
-        {
-            option.AuthorizationTokenUrl = "https://aip.baidubce.com/oauth/2.0/token";
-            option.AppId = "25941046";
-            option.ApiKey = "yG2UTxXbim49ery2sXcL4r77";
-            option.Secret = "fv0ffQe0gGRLSwvVydkAoPWYynkGFpRx";
-
-
-        });
-
         services.ConfigureJsonLocalizationOptions(options =>
         {
             // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
