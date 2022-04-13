@@ -3,11 +3,10 @@ declare class Recorder {
     public open(success: () => void, error: (msg: String, isUserNotAllow: Boolean) => void): void;
     public start();
     public stop(success: (blob: Blob, duration: Number) => void, eror: (msg: String) => void): void;
-
 }
 
 declare interface Obj {
-    invokeMethodAsync(method: String, params?: any)
+    invokeMethodAsync(method: String, status: String, params?: any)
 }
 
 interface Options {

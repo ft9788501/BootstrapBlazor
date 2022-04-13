@@ -77,21 +77,29 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     /// <summary>
     /// RecognizeCallback 回调方法
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
-    public async Task RecognizeCallback(byte[] bytes)
+    public async Task RecognizeCallback(string status, byte[]? bytes)
     {
-        var result = Client.Recognize(bytes, "wav", 16000);
-        var sb = new StringBuilder();
-        var text = result["result"].ToArray();
-        foreach (var item in text)
+        string data = "";
+        if (status == "bb_finish")
         {
-            sb.Append(item.ToString());
+            var result = Client.Recognize(bytes, "wav", 16000);
+            var sb = new StringBuilder();
+            var text = result["result"].ToArray();
+            foreach (var item in text)
+            {
+                sb.Append(item.ToString());
+            }
+            data = sb.ToString();
+        }
+        else if (status == "bb_error")
+        {
+            data = status;
         }
 
         if (Option.Callback != null)
         {
-            await Option.Callback(sb.ToString());
+            await Option.Callback(data);
         }
     }
 
