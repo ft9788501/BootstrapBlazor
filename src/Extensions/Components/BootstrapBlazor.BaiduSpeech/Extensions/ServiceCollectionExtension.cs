@@ -5,11 +5,6 @@
 using BootstrapBlazor.Components;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -31,11 +26,11 @@ public static class ServiceCollectionExtension
         services.AddMemoryCache();
 
         services.TryAddScoped<RecognizerService>();
-        services.TryAddScoped<IRecognizerProvider, BaiduRecognizerProvider>();
-        services.TryAddSingleton<IConfigureOptions<BaiduSpeechOption>, ConfigureOptions<BaiduSpeechOption>>();
+        services.AddScoped<IRecognizerProvider, BaiduRecognizerProvider>();
 
         services.TryAddScoped<SynthesizerService>();
-        services.TryAddScoped<ISynthesizerProvider, BaiduSynthesizerProvider>();
+        services.AddScoped<ISynthesizerProvider, BaiduSynthesizerProvider>();
+
         services.TryAddSingleton<IConfigureOptions<BaiduSpeechOption>, ConfigureOptions<BaiduSpeechOption>>();
 
         services.Configure<BaiduSpeechOption>(option =>
