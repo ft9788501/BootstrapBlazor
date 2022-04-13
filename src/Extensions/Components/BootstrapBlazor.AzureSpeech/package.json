@@ -1,0 +1,23 @@
+{
+  "name": "speech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./wwwroot/js/speech.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "microsoft-cognitiveservices-speech-sdk": "^1.20.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/plugin-transform-classes": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@purtuga/esm-webpack-plugin": "^1.5.0",
+    "babel-loader": "^8.2.4"
+  }
+}
