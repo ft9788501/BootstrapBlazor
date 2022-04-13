@@ -114,7 +114,7 @@ public partial class Synthesizers
         }
         else
         {
-            await SynthesizerProvider..AzureCloseAsync(Recognize);
+            await SynthesizerProvider.AzureCloseAsync(Recognize);
         }
     }
 }
