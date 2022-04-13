@@ -61,7 +61,7 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
                     Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js");
                 }
                 Interop ??= DotNetObjectReference.Create(this);
-                await Module.InvokeVoidAsync("bb_speech_synthesizerOnce", Interop, nameof(Callback), result.Data);
+                await Module.InvokeVoidAsync("bb_baidu_speech_synthesizerOnce", Interop, nameof(Callback), result.Data);
             }
 
         }
