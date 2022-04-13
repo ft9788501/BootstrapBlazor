@@ -37,19 +37,8 @@ public partial class Speechs
 
     private bool Show { get; set; }
 
-    private bool IsAzure { get; set; }
-
     [NotNull]
     private string? NugetPackageName { get; set; }
-
-    private List<SelectedItem> SpeechItems { get; } = new List<SelectedItem>
-    {
-        new("Azure", "Azure 语音"),
-        new("Baidu", "Baidu 语音")
-    };
-
-    [NotNull]
-    private string? SpeechItem { get; set; } = "Azure";
 
     [NotNull]
     private Func<string, Func<SynthesizerStatus, Task>, Task>? SynthesizerInvokeAsync { get; set; }

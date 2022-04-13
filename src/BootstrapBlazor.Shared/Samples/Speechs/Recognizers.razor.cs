@@ -25,15 +25,6 @@ public partial class Recognizers
 
     private string ButtonText { get; set; } = "开始识别";
 
-    private List<SelectedItem> SpeechItems { get; } = new List<SelectedItem>
-    {
-        new("Azure", "Azure 语音"),
-        new("Baidu", "Baidu 语音")
-    };
-
-    [NotNull]
-    private string? SpeechItem { get; set; } = "Azure";
-
     [NotNull]
     private Func<Func<string, Task>, Task>? RecognizerInvokeAsync { get; set; }
 

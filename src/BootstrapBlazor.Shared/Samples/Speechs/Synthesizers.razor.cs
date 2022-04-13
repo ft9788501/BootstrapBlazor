@@ -29,15 +29,6 @@ public partial class Synthesizers
 
     private bool IsDisabled { get; set; }
 
-    private List<SelectedItem> SpeechItems { get; } = new List<SelectedItem>
-    {
-        new("Azure", "Azure 语音"),
-        new("Baidu", "Baidu 语音")
-    };
-
-    [NotNull]
-    private string? SpeechItem { get; set; } = "Azure";
-
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
