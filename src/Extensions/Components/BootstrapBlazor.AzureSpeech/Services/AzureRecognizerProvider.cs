@@ -89,6 +89,10 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
                     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(9);
                 }
             }
+            else
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(50);
+            }
         }
         catch
         {
