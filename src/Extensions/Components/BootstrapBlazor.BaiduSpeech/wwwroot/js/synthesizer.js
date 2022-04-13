@@ -18,6 +18,6 @@ export function bb_baidu_speech_synthesizerOnce(obj, callback, data) {
 export function bb_baidu_close_synthesizer(obj, callback) {
     if (audio != undefined) {
         audio.pause();
+        obj.invokeMethodAsync(callback, "Cancel");
     }
-    obj.invokeMethodAsync(callback, "Finished");
 };

@@ -116,6 +116,6 @@ export function bb_azure_close_synthesizer(obj, method) {
     if (player != undefined) {
         player.pause();
         player = undefined;
+        obj.invokeMethodAsync(method, "Cancel");
     }
-    obj.invokeMethodAsync(method, "Finished");
 }
