@@ -2,7 +2,7 @@
     --bb-layout-header-height: 50px;
     --bb-layout-user-height: 65px;
     --bb-layout-footer-height: 90px;
-    --bb-layout-side-width: 214px;
+    --bb-layout-side-width: 300px;
     --bb-layout-sidebar-collapse-width: 50px;
 }
 
@@ -35,7 +35,7 @@
     left: 0;
     right: 0;
     width: auto;
-    transition: transform .3s linear;
+    transition: transform .1s linear;
     z-index: 1030;
 }
 
@@ -83,7 +83,7 @@
 }
 
     .layout-header-bar .fa-bars {
-        transition: transform .3s linear;
+        transition: transform .1s linear;
     }
 
     .layout-header-bar.is-collapsed .fa-bars {
@@ -222,8 +222,8 @@
             width: var(--bb-layout-side-width);
         }
 
-        .layout.is-page .layout-side.is-collapsed:not(:hover),
-        .layout.is-page .layout-side:not(:hover) .menu.is-vertical.is-collapsed {
+        .layout.is-page .layout-side.is-collapsed,
+        .layout.is-page .layout-side .menu.is-vertical.is-collapsed {
             width: var(--bb-layout-sidebar-collapse-width);
         }
 
@@ -244,7 +244,7 @@
     .layout .layout-side,
     .layout.is-page .layout-side,
     .layout .menu.is-vertical {
-        transition: width .3s linear;
+        transition: width .1s linear;
     }
 
     .layout-right {
@@ -265,7 +265,7 @@
         white-space: nowrap;
         flex: 1 1 auto;
         opacity: 1;
-        transition: opacity .3s linear;
+        transition: opacity .1s linear;
         color: #e9ecef;
     }
 

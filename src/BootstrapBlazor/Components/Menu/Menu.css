@@ -20,7 +20,7 @@
         left: 50%;
         height: 2px;
         width: 0;
-        transition: width .3s linear, left .3s linear;
+        transition: width .1s linear, left .1s linear;
     }
 
 .menu .nav .nav-link,
@@ -87,7 +87,7 @@
 }
 
 .menu .has-leaf > .nav-link-right {
-    transition: transform .3s linear;
+    transition: transform .1s linear;
     position: absolute;
     right: 10px;
     top: 10px;
@@ -106,7 +106,7 @@
     overflow: hidden;
     vertical-align: top;
     display: inline-block;
-    transition: width .3s linear;
+    transition: width .1s linear;
 }
 
 .menu .nav-link.disabled {
@@ -131,7 +131,7 @@
     align-items: center;
     line-height: 21px;
     color: inherit;
-    transition: background-color .3s linear, color .3s linear;
+    transition: background-color .1s linear, color .1s linear;
 }
 
     .menu .nav-link > div {
@@ -163,7 +163,7 @@
     }
 
         .menu .submenu .nav-link .fa-angle-left {
-            transition: transform .3s linear;
+            transition: transform .1s linear;
         }
 
         .menu .submenu .nav-link[aria-expanded="true"] > .fa-angle-left {
@@ -185,7 +185,7 @@
 
 
 @media (min-width: 768px) {
-    .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .submenu .text {
+    .layout-side.is-collapsed .menu.is-collapsed .submenu .text {
         width: 0;
     }
 }
